@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowX – Industrial Water Innovation</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800&family=Sarabun:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:    #0A1628;
+    --blue:    #0D3B6E;
+    --mid:     #1A5FA6;
+    --steel:   #2C3E50;
+    --grey:    #8A9BB0;
+    --ltgrey:  #D0DAE6;
+    --white:   #F4F7FA;
+    --green:   #00C47A;
+    --green2:  #00E88F;
+    --accent:  #1BE8A5;
+    --warn:    #E8603C;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--navy);
+    font-family: 'Sarabun', sans-serif;
+    color: var(--white);
+    width: 900px;
+    margin: 0 auto;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, #060E1F 0%, #0D3B6E 55%, #0A2040 100%);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 3px solid var(--green);
+  }
+  .header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0, rgba(255,255,255,.03) 1px, transparent 1px, transparent 60px),
+      repeating-linear-gradient(0deg,  rgba(255,255,255,.03) 0, rgba(255,255,255,.03) 1px, transparent 1px, transparent 60px);
+  }
+  .header-inner {
+    position: relative;
+    display: flex; align-items: stretch;
+    min-height: 200px;
+  }
+  .header-left {
+    flex: 1;
+    padding: 40px 40px 36px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,196,122,.15);
+    border: 1px solid rgba(0,196,122,.4);
+    border-radius: 3px;
+    padding: 5px 12px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px; letter-spacing: 2px;
+    color: var(--green);
+    margin-bottom: 18px;
+    width: fit-content;
+  }
+  .badge::before { content:'◆'; font-size:8px; }
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 64px; font-weight: 800;
+    line-height: .9;
+    letter-spacing: -1px;
+    color: #fff;
+  }
+  h1 span { color: var(--green); }
+  .tagline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 300;
+    color: var(--ltgrey); letter-spacing: 3px;
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+  .header-right {
+    width: 280px;
+    background: rgba(0,0,0,.25);
+    border-left: 1px solid rgba(255,255,255,.08);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 30px;
+    gap: 18px;
+  }
+  .stat-pill {
+    text-align: center;
+  }
+  .stat-pill .num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 52px; font-weight: 800;
+    color: var(--green);
+    line-height: 1;
+  }
+  .stat-pill .unit {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px; color: var(--grey);
+  }
+  .stat-pill .lbl {
+    font-size: 11px; color: var(--ltgrey);
+    letter-spacing: 1.5px; text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .divider-v { width: 1px; height: 30px; background: rgba(255,255,255,.1); }
+
+  /* ── SECTION BLOCKS ── */
+  .section {
+    padding: 40px 40px 0;
+  }
+  .section:last-child { padding-bottom: 40px; }
+
+  .sec-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px; letter-spacing: 3px;
+    color: var(--green);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .sec-label::after { content:''; flex: 1; height: 1px; background: rgba(0,196,122,.3); }
+
+  h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 30px; font-weight: 700;
+    color: #fff; margin-bottom: 20px;
+  }
+  h2 em { color: var(--green); font-style: normal; }
+
+  /* ── PROBLEM BANNER ── */
+  .problem-banner {
+    background: linear-gradient(100deg, #120808 0%, #2A1208 100%);
+    border: 1px solid rgba(232,96,60,.3);
+    border-left: 4px solid var(--warn);
+    border-radius: 4px;
+    padding: 24px 28px;
+    display: flex; gap: 28px; align-items: center;
+    margin-bottom: 30px;
+  }
+  .warn-icon {
+    font-size: 42px; flex-shrink: 0;
+    filter: drop-shadow(0 0 12px rgba(232,96,60,.6));
+  }
+  .problem-text p {
+    font-size: 14px; color: #ccc; line-height: 1.7;
+  }
+  .problem-text strong { color: var(--warn); }
+
+  /* ── SCALE VISUAL ── */
+  .scale-visual {
+    display: flex; gap: 16px; margin-bottom: 30px;
+  }
+  .scale-card {
+    flex: 1; padding: 20px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 6px;
+    position: relative; overflow: hidden;
+  }
+  .scale-card::before {
+    content: attr(data-pct);
+    position: absolute; right: -10px; bottom: -14px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 80px; font-weight: 800;
+    color: rgba(255,255,255,.03);
+    line-height: 1;
+  }
+  .scale-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--grey); margin-bottom: 10px;
+  }
+  .bar-wrap { height: 10px; background: rgba(255,255,255,.08); border-radius: 5px; overflow: hidden; margin-bottom: 8px; }
+  .bar { height: 100%; border-radius: 5px; }
+  .bar.bad  { background: linear-gradient(90deg, #c0392b, var(--warn)); }
+  .bar.good { background: linear-gradient(90deg, #00a86b, var(--green)); }
+  .scale-card .val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px; font-weight: 700;
+  }
+  .scale-card .val.bad  { color: var(--warn); }
+  .scale-card .val.good { color: var(--green); }
+  .scale-card p { font-size: 12px; color: var(--grey); margin-top: 4px; line-height: 1.5; }
+
+  /* ── TECH SECTION ── */
+  .tech-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    margin-bottom: 30px;
+  }
+  .tech-card {
+    background: linear-gradient(135deg, rgba(13,59,110,.5), rgba(10,22,40,.8));
+    border: 1px solid rgba(26,95,166,.4);
+    border-top: 3px solid var(--mid);
+    border-radius: 6px;
+    padding: 20px;
+  }
+  .tech-card.highlight {
+    border-top-color: var(--green);
+    background: linear-gradient(135deg, rgba(0,196,122,.08), rgba(10,22,40,.9));
+  }
+  .tech-icon {
+    font-size: 28px; margin-bottom: 10px;
+  }
+  .tech-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: #fff; margin-bottom: 6px;
+  }
+  .tech-card p { font-size: 13px; color: var(--grey); line-height: 1.6; }
+  .tech-card .tag {
+    display: inline-block; margin-top: 10px;
+    background: rgba(0,196,122,.15); color: var(--green);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px; letter-spacing: 1.5px;
+    padding: 3px 8px; border-radius: 2px;
+  }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow-row {
+    display: flex; align-items: center; gap: 0;
+    margin-bottom: 24px;
+  }
+  .flow-box {
+    flex: 1; text-align: center;
+    padding: 14px 8px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 4px;
+  }
+  .flow-box .flow-icon { font-size: 22px; }
+  .flow-box p { font-size: 11px; color: var(--ltgrey); margin-top: 4px; line-height: 1.4; }
+  .flow-arrow {
+    width: 36px; text-align: center;
+    font-size: 20px; color: var(--green);
+    flex-shrink: 0;
+  }
+  .flow-box.active {
+    border-color: var(--green);
+    background: rgba(0,196,122,.1);
+  }
+  .flow-box.active p { color: var(--green); }
+
+  /* ── SAVINGS CALCULATOR ── */
+  .savings-block {
+    background: linear-gradient(120deg, #050D1A 0%, #0D3B6E 100%);
+    border: 1px solid rgba(26,95,166,.5);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 30px;
+  }
+  .savings-header {
+    background: rgba(0,0,0,.3);
+    padding: 16px 24px;
+    display: flex; align-items: center; gap: 12px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .savings-header h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 700; letter-spacing: 1px;
+    color: #fff;
+  }
+  .savings-header span {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px; color: var(--grey); letter-spacing: 2px;
+  }
+  .savings-body {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;
+  }
+  .sav-col {
+    padding: 24px 20px;
+    border-right: 1px solid rgba(255,255,255,.07);
+  }
+  .sav-col:last-child { border-right: none; }
+  .sav-col .lbl {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px; color: var(--grey); letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .sav-col .big {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 38px; font-weight: 800; line-height: 1;
+    color: #fff;
+  }
+  .sav-col .big.green { color: var(--green); }
+  .sav-col .big.red   { color: var(--warn);  }
+  .sav-col .sub { font-size: 13px; color: var(--grey); margin-top: 6px; }
+  .sav-col .note { font-size: 11px; color: rgba(255,255,255,.4); margin-top: 12px; }
+
+  /* ── CARBON ── */
+  .carbon-row {
+    display: flex; gap: 16px; margin-bottom: 30px;
+  }
+  .carbon-card {
+    flex: 1; padding: 22px;
+    background: rgba(0,196,122,.05);
+    border: 1px solid rgba(0,196,122,.2);
+    border-radius: 6px;
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+  .carbon-card .ico { font-size: 36px; flex-shrink: 0; }
+  .carbon-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px; font-weight: 700; color: var(--green);
+  }
+  .carbon-card p { font-size: 12px; color: var(--grey); margin-top: 4px; line-height: 1.6; }
+
+  /* ── APPLICATIONS ── */
+  .apps-grid {
+    display: grid; grid-template-columns: repeat(5,1fr); gap: 10px;
+    margin-bottom: 28px;
+  }
+  .app-item {
+    text-align: center;
+    padding: 16px 8px;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 6px;
+    transition: border-color .2s;
+  }
+  .app-item:hover { border-color: rgba(0,196,122,.4); }
+  .app-item .ico { font-size: 28px; display: block; margin-bottom: 8px; }
+  .app-item p { font-size: 11px; color: var(--ltgrey); line-height: 1.4; }
+
+  /* ── INDUSTRY SECTORS ── */
+  .sectors {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 30px;
+  }
+  .sector-tag {
+    padding: 7px 14px;
+    background: rgba(26,95,166,.2);
+    border: 1px solid rgba(26,95,166,.4);
+    border-radius: 3px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; font-weight: 600;
+    letter-spacing: 1px; color: var(--ltgrey);
+  }
+
+  /* ── BENEFITS ROW ── */
+  .benefits-row {
+    display: flex; gap: 12px; margin-bottom: 30px;
+  }
+  .benefit {
+    flex: 1;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 6px;
+    padding: 18px;
+    text-align: center;
+    position: relative;
+  }
+  .benefit::after {
+    content: '';
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 40%; height: 2px;
+    background: var(--green);
+    border-radius: 2px;
+  }
+  .benefit .ico { font-size: 30px; margin-bottom: 8px; display: block; }
+  .benefit h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: #fff; margin-bottom: 6px;
+  }
+  .benefit p { font-size: 11px; color: var(--grey); line-height: 1.5; }
+
+  /* ── PRODUCT SPECS ── */
+  .products-section {
+    background: rgba(13,59,110,.15);
+    border: 1px solid rgba(26,95,166,.3);
+    border-radius: 8px; overflow: hidden;
+    margin-bottom: 30px;
+  }
+  .prod-header {
+    background: rgba(13,59,110,.5);
+    padding: 16px 24px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 700;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    display: flex; gap: 20px;
+  }
+  .prod-line {
+    padding: 18px 24px;
+    display: grid; grid-template-columns: 140px 1fr;
+    gap: 20px; align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+  }
+  .prod-line:last-child { border-bottom: none; }
+  .line-badge {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+  .dot.blue { background: #1A7BD4; box-shadow: 0 0 8px rgba(26,123,212,.6); }
+  .dot.red  { background: #D41A1A; box-shadow: 0 0 8px rgba(212,26,26,.6); }
+  .line-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700;
+    color: #fff;
+  }
+  .specs-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+  .spec-chip {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 3px;
+    padding: 4px 10px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px; color: var(--ltgrey);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: #060D1A;
+    border-top: 2px solid rgba(0,196,122,.3);
+    padding: 28px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 36px; font-weight: 800;
+    color: #fff;
+  }
+  .footer-logo span { color: var(--green); }
+  .footer-sub { font-size: 11px; color: var(--grey); margin-top: 2px; letter-spacing: 2px; }
+  .footer-contact { text-align: right; }
+  .footer-contact p { font-size: 12px; color: var(--grey); line-height: 1.8; }
+  .footer-contact a { color: var(--green); text-decoration: none; }
+  .footer-contact .web {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 700;
+    color: #fff; letter-spacing: 1px;
+  }
+
+  /* ── DIVIDER ── */
+  .hdiv {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
+    margin: 0 40px 30px;
+  }
+
+  /* ── NO CHEMICALS STRIP ── */
+  .no-chem {
+    background: linear-gradient(90deg, rgba(0,196,122,.08), rgba(0,196,122,.03));
+    border-top: 1px solid rgba(0,196,122,.2);
+    border-bottom: 1px solid rgba(0,196,122,.2);
+    padding: 14px 40px;
+    display: flex; gap: 24px; align-items: center; justify-content: center;
+    margin-bottom: 30px;
+  }
+  .no-chem-item {
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+  .no-chem-item span { font-size: 18px; }
+  .no-chem-sep { color: rgba(255,255,255,.15); font-size: 20px; }
+
+  /* print */
+  @media print {
+    body { width: 900px; }
+    @page { size: 900px auto; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════ -->
+<header class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="badge">INDUSTRIAL WATER TECHNOLOGY · TH</div>
+      <h1>Flow<span>X</span></h1>
+      <div class="tagline">Industrial Water Innovation · Energy Efficiency</div>
+    </div>
+    <div class="header-right">
+      <div class="stat-pill">
+        <div class="num">5–15<span class="unit">%</span></div>
+        <div class="lbl">Energy Loss จาก Scale</div>
+      </div>
+      <div class="divider-v"></div>
+      <div class="stat-pill">
+        <div class="num">80<span class="unit">+</span></div>
+        <div class="lbl">ประเทศที่ติดตั้ง</div>
+      </div>
+      <div class="divider-v"></div>
+      <div class="stat-pill">
+        <div class="num">0</div>
+        <div class="lbl">สารเคมี · ไฟฟ้า</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════
+     THE PROBLEM
+══════════════════════════════════════════ -->
+<section class="section" style="padding-top:36px;">
+  <div class="sec-label">01 · ปัญหา</div>
+  <h2>พลังงานที่ <em>สูญหาย</em> อยู่ในระบบน้ำของคุณ</h2>
+
+  <div class="problem-banner">
+    <div class="warn-icon">⚠️</div>
+    <div class="problem-text">
+      <p>ในระบบ Cooling Tower, Heat Exchanger, Chiller และ Boiler — แร่ธาตุในน้ำจะสะสมเป็น <strong>Mineral Scale</strong> บนผิวการถ่ายเทความร้อน แม้เพียงชั้นบางๆ ก็ทำให้ระบบสูญเสียพลังงาน <strong>5–15%</strong> ทันที ส่งผลให้ค่าไฟฟ้าเพิ่มขึ้น เครื่องจักรเสื่อมเร็ว และ Carbon Emissions พุ่งสูงขึ้น</p>
+    </div>
+  </div>
+
+  <div class="scale-visual">
+    <div class="scale-card" data-pct="100">
+      <h3>ประสิทธิภาพการถ่ายเทความร้อน</h3>
+      <div class="bar-wrap"><div class="bar bad" style="width:35%"></div></div>
+      <div class="val bad">−35%</div>
+      <p>Scale หนา 8mm ลดประสิทธิภาพลงถึง 35%</p>
+    </div>
+    <div class="scale-card" data-pct="15">
+      <h3>การสูญเสียพลังงาน</h3>
+      <div class="bar-wrap"><div class="bar bad" style="width:55%"></div></div>
+      <div class="val bad">+15%</div>
+      <p>ค่าไฟฟ้าเพิ่มขึ้นตามความหนา Scale ที่สะสม</p>
+    </div>
+    <div class="scale-card" data-pct="90">
+      <h3>ประสิทธิภาพด้วย FlowX</h3>
+      <div class="bar-wrap"><div class="bar good" style="width:90%"></div></div>
+      <div class="val good">90%</div>
+      <p>ชะลอการก่อตัว Scale ได้ 76–90% โดยไม่ใช้สารเคมี</p>
+    </div>
+  </div>
+</section>
+
+<div class="hdiv"></div>
+
+<!-- ══════════════════════════════════════════
+     TECHNOLOGY
+══════════════════════════════════════════ -->
+<section class="section" style="padding-top:0;">
+  <div class="sec-label">02 · เทคโนโลยี</div>
+  <h2><em>TGP® Technology</em> — ควบคุมผลึกแร่ก่อนที่จะสะสม</h2>
+
+  <div class="tech-grid">
+    <div class="tech-card highlight">
+      <div class="tech-icon">⚡</div>
+      <h3>Turbulent Galvanic Polarization (TGP®)</h3>
+      <p>FlowX ใช้สิทธิบัตร TGP® Electrode ปรับโครงสร้างการตกผลึกของแร่ธาตุในน้ำ ทำให้ผลึกไม่สามารถเกาะติดผิวท่อหรือ Heat Exchanger ได้อีกต่อไป — ไม่ต้องใช้ไฟฟ้า ไม่ต้องใช้สารเคมี</p>
+      <div class="tag">NO POWER · NO CHEMICALS</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-icon">🔬</div>
+      <h3>Crystal Structure Control</h3>
+      <p>แทนที่จะกำจัด Scale หลังจากที่เกิดขึ้นแล้ว FlowX ป้องกันการก่อตัวตั้งแต่ต้นทาง — ผลึกแร่ธาตุจะแขวนลอยอยู่ในน้ำและถูกพัดพาออกไปโดยไม่ตกตะกอน</p>
+      <div class="tag">PREVENTIVE APPROACH</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-icon">🔧</div>
+      <h3>Flange Connection</h3>
+      <p>ติดตั้งง่ายด้วยระบบ Flange แบบ Inline รองรับขนาดท่อ DN40 ถึง DN150 ไม่ต้องหยุดระบบในระยะยาว ไม่ต้องปรับเปลี่ยนท่อเดิม</p>
+      <div class="tag">EASY INSTALL</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-icon">🌐</div>
+      <h3>Swiss Engineering · Proven Global</h3>
+      <p>พัฒนาโดยวิศวกรรมสวิส ได้รับการรับรองสิทธิบัตรระดับสากล ติดตั้งในกว่า 80 ประเทศทั่วโลก ใช้งานในโรงงานอุตสาหกรรมชั้นนำ</p>
+      <div class="tag">80+ COUNTRIES</div>
+    </div>
+  </div>
+</section>
+
+<div class="hdiv"></div>
+
+<!-- ══════════════════════════════════════════
+     FLOW DIAGRAM
+══════════════════════════════════════════ -->
+<section class="section" style="padding-top:0;">
+  <div class="sec-label">03 · กระบวนการ</div>
+  <h2>วิธีการทำงานของ FlowX</h2>
+
+  <div class="flow-row" style="margin-bottom:30px;">
+    <div class="flow-box">
+      <div class="flow-icon">💧</div>
+      <p>น้ำที่มีแร่ธาตุ<br>เข้าสู่ระบบ</p>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box active">
+      <div class="flow-icon">⚡</div>
+      <p><strong>FlowX TGP®</strong><br>ปรับโครงสร้างผลึก</p>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box">
+      <div class="flow-icon">🌊</div>
+      <p>ผลึกลอยตัว<br>ไม่เกาะผิวท่อ</p>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box">
+      <div class="flow-icon">🏭</div>
+      <p>ระบบรักษา<br>ประสิทธิภาพ 90%+</p>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box">
+      <div class="flow-icon">📉</div>
+      <p>ลดพลังงาน<br>ลด CO₂</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     NO CHEMICALS STRIP
+══════════════════════════════════════════ -->
+<div class="no-chem">
+  <div class="no-chem-item"><span>✅</span> ไม่ใช้สารเคมี</div>
+  <div class="no-chem-sep">|</div>
+  <div class="no-chem-item"><span>✅</span> ไม่ต้องต่อไฟฟ้า</div>
+  <div class="no-chem-sep">|</div>
+  <div class="no-chem-item"><span>✅</span> ไม่ต้องเปลี่ยนไส้กรอง</div>
+  <div class="no-chem-sep">|</div>
+  <div class="no-chem-item"><span>✅</span> บำรุงรักษาต่ำมาก</div>
+  <div class="no-chem-sep">|</div>
+  <div class="no-chem-item"><span>✅</span> ECO-FRIENDLY</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SAVINGS CALCULATOR
+══════════════════════════════════════════ -->
+<section class="section" style="padding-top:0;">
+  <div class="sec-label">04 · ผลลัพธ์ทางการเงิน</div>
+  <h2>ตัวอย่าง <em>การประหยัดพลังงาน</em> จริง</h2>
+
+  <div class="savings-block">
+    <div class="savings-header">
+      <h3>🏭 ระบบ Cooling Tower ขนาด 1 MW</h3>
+      <span>EXAMPLE · INDUSTRIAL COOLING SYSTEM</span>
+    </div>
+    <div class="savings-body">
+      <div class="sav-col">
+        <div class="lbl">พลังงานรวม / ปี</div>
+        <div class="big">8,000,000</div>
+        <div class="sub">kWh / ปี</div>
+        <div class="note">ค่าไฟประมาณ 32 ล้านบาท / ปี</div>
+      </div>
+      <div class="sav-col">
+        <div class="lbl">Energy Loss จาก Scale</div>
+        <div class="big red">3,000,000</div>
+        <div class="sub">kWh ที่สูญเสีย (10%)</div>
+        <div class="note">ต้นทุนที่หายไป ≈ 3 ล้านบาท / ปี</div>
+      </div>
+      <div class="sav-col" style="background:rgba(0,196,122,.05);">
+        <div class="lbl">ประหยัดด้วย FlowX</div>
+        <div class="big green">2–3 ล้าน</div>
+        <div class="sub">บาท / ปี</div>
+        <div class="note" style="color:var(--green);opacity:.7;">Payback &lt; 1 ปี</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CARBON IMPACT
+══════════════════════════════════════════ -->
+<section class="section" style="padding-top:0;">
+  <div class="sec-label">05 · Carbon Impact</div>
+  <h2>ลด <em>Carbon Emissions</em> สู่เป้าหมาย Net Zero</h2>
+
+  <div class="carbon-row">
+    <div class="carbon-card">
+      <div class="ico">⚡</div>
+      <div>
+        <h3>700,000 kWh</h3>
+        <p>พลังงานที่ประหยัดได้ต่อปี<br>จากระบบ Cooling ขนาด 1 MW</p>
+      </div>
+    </div>
+    <div class="carbon-card">
+      <div class="ico">🌿</div>
+      <div>
+        <h3>≈ 350 ตัน CO₂</h3>
+        <p>ลดการปล่อยก๊าซเรือนกระจก<br>ต่อปีต่อโรงงาน</p>
+      </div>
+    </div>
+    <div class="carbon-card">
+      <div class="ico">🏢</div>
+      <div>
+        <h3>หลายพันตัน</h3>
+        <p>ผลกระทบสะสมสำหรับองค์กร<br>ที่มีหลายโรงงาน</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:rgba(0,196,122,.06);border:1px solid rgba(0,196,122,.2);border-radius:6px;padding:16px 20px;display:flex;gap:12px;align-items:center;margin-bottom:30px;">
+    <span style="font-size:24px;">🎯</span>
+    <p style="font-size:13px;color:var(--ltgrey);line-height:1.7;">FlowX รองรับกลยุทธ์ <strong style="color:var(--green);">ESG · Carbon Neutrality · Net Zero</strong> ขององค์กร — ด้วยการเพิ่ม Energy Efficiency ซึ่งเป็นกลยุทธ์ที่มีต้นทุนต่ำที่สุดในการลดคาร์บอน</p>
+  </div>
+</section>
+
+<div class="hdiv"></div>
+
+<!-- ══════════════════════════════════════════
+     APPLICATIONS
+══════════════════════════════════════════ -->
+<section class="section" style="padding-top:0;">
+  <div class="sec-label">06 · การประยุกต์ใช้</div>
+  <h2>รองรับทุก <em>ระบบน้ำอุตสาหกรรม</em></h2>
+
+  <div class="apps-grid">
+    <div class="app-item">
+      <span class="ico">🌡️</span>
+      <p>Cooling<br>Towers</p>
+    </div>
+    <div class="app-item">
+      <span class="ico">❄️</span>
+      <p>Chiller<br>Systems</p>
+    </div>
+    <div class="app-item">
+      <span class="ico">🔥</span>
+      <p>Heat<br>Exchangers</p>
+    </div>
+    <div class="app-item">
+      <span class="ico">♨️</span>
+      <p>Boilers<br>Systems</p>
+    </div>
+    <div class="app-item">
+      <span class="ico">🏗️</span>
+      <p>Industrial<br>Water</p>
+    </div>
+  </div>
+
+  <div class="sec-label">กลุ่มอุตสาหกรรม</div>
+  <div class="sectors">
+    <div class="sector-tag">Food &amp; Beverage</div>
+    <div class="sector-tag">Chemical</div>
+    <div class="sector-tag">Petrochemical</div>
+    <div class="sector-tag">Manufacturing</div>
+    <div class="sector-tag">Data Centers</div>
+    <div class="sector-tag">HVAC Systems</div>
+    <div class="sector-tag">Automotive</div>
+    <div class="sector-tag">Pharmaceutical</div>
+    <div class="sector-tag">Power Generation</div>
+  </div>
+</section>
+
+<div class="hdiv"></div>
+
+<!-- ══════════════════════════════════════════
+     BENEFITS
+══════════════════════════════════════════ -->
+<section class="section" style="padding-top:0;">
+  <div class="sec-label">07 · ประโยชน์หลัก</div>
+  <h2>ทุก <em>มิติ</em> ของ Value</h2>
+
+  <div class="benefits-row">
+    <div class="benefit">
+      <span class="ico">💡</span>
+      <h4>Energy Efficiency</h4>
+      <p>เพิ่มประสิทธิภาพ Heat Transfer ลดการใช้พลังงานของระบบ</p>
+    </div>
+    <div class="benefit">
+      <span class="ico">💰</span>
+      <h4>Cost Reduction</h4>
+      <p>ลดค่าไฟฟ้าและต้นทุนการดำเนินงาน Payback &lt; 1 ปี</p>
+    </div>
+    <div class="benefit">
+      <span class="ico">🔧</span>
+      <h4>Low Maintenance</h4>
+      <p>ลด Scale สะสม ลดความถี่การบำรุงรักษาเครื่องจักร</p>
+    </div>
+    <div class="benefit">
+      <span class="ico">🌿</span>
+      <h4>Carbon Neutral</h4>
+      <p>สนับสนุน ESG Goals และ Net Zero Emissions</p>
+    </div>
+  </div>
+</section>
+
+<div class="hdiv"></div>
+
+<!-- ══════════════════════════════════════════
+     PRODUCT SPECS
+══════════════════════════════════════════ -->
+<section class="section" style="padding-top:0;">
+  <div class="sec-label">08 · สเปคผลิตภัณฑ์</div>
+  <h2>FlowX <em>Industrial Series</em></h2>
+
+  <div class="products-section">
+    <div class="prod-header">
+      <span>รุ่นสำหรับอุตสาหกรรม · Flange Connection</span>
+    </div>
+    <div class="prod-line">
+      <div class="line-badge">
+        <div class="dot blue"></div>
+        <div class="line-name">Blue Line</div>
+      </div>
+      <div class="specs-wrap">
+        <div class="spec-chip">DN40 – DN125</div>
+        <div class="spec-chip">Flow: 8–25 m³/hr</div>
+        <div class="spec-chip">Max 16 Bar</div>
+        <div class="spec-chip">3 TGP Coretubes</div>
+        <div class="spec-chip">Flange Connection</div>
+        <div class="spec-chip">High-Flow Industrial</div>
+      </div>
+    </div>
+    <div class="prod-line">
+      <div class="line-badge">
+        <div class="dot red"></div>
+        <div class="line-name">Red Line</div>
+      </div>
+      <div class="specs-wrap">
+        <div class="spec-chip">DN40 – DN150</div>
+        <div class="spec-chip">Flow: 8–60 m³/hr</div>
+        <div class="spec-chip">Max 16 Bar</div>
+        <div class="spec-chip">3–4 TGP Coretubes</div>
+        <div class="spec-chip">Flange Connection</div>
+        <div class="spec-chip">Heavy Industrial</div>
+      </div>
+    </div>
+    <div class="prod-line" style="background:rgba(0,196,122,.04);">
+      <div class="line-badge">
+        <div class="dot" style="background:var(--green);box-shadow:0 0 8px rgba(0,196,122,.6);"></div>
+        <div class="line-name" style="color:var(--green);">DN65 Hybrid</div>
+      </div>
+      <div class="specs-wrap">
+        <div class="spec-chip">DN65 Flange</div>
+        <div class="spec-chip">4 TGP + Linear</div>
+        <div class="spec-chip">Max 10 Bar</div>
+        <div class="spec-chip">Flow: 16 m³/hr</div>
+        <div class="spec-chip">&lt;0.5 Bar Pressure Drop</div>
+        <div class="spec-chip">Blue &amp; Red Available</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer class="footer">
+  <div>
+    <div class="footer-logo">Flow<span>X</span></div>
+    <div class="footer-sub">INDUSTRIAL WATER INNOVATION</div>
+    <div style="margin-top:10px;font-size:11px;color:var(--grey);">
+      Swiss Engineering · Patented TGP® Technology · 80+ Countries
+    </div>
+  </div>
+  <div style="text-align:center;">
+    <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--grey);letter-spacing:3px;margin-bottom:8px;">SCAN TO VISIT</div>
+    <div style="width:60px;height:60px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:28px;">📱</div>
+  </div>
+  <div class="footer-contact">
+    <div class="web">www.flowx.in.th</div>
+    <p style="margin-top:8px;">
+      สอบถามข้อมูลและรับคำปรึกษา<br>
+      <a href="https://www.flowx.in.th/contact/">FlowX Industrial Technology</a><br>
+      Engineering Solutions for Energy Efficient Industry
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
