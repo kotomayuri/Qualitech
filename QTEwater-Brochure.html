@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QTEwater – Industrial Water Management Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800&family=Sarabun:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  /* ─── EDIT THESE VARIABLES TO CUSTOMISE ─────────────────────── */
+  :root {
+    --white:    #FFFFFF;
+    --offwhite: #F5F8FC;
+    --cloud:    #EAF0F8;
+    --ltblue:   #D6E4F5;
+    --blue:     #1565C0;
+    --mid:      #1976D2;
+    --sky:      #42A5F5;
+    --navy:     #0D2B55;
+    --steel:    #3D5A80;
+    --grey:     #6B7E95;
+    --dkgrey:   #3A4A5C;
+    --accent:   #0288D1;
+    --cyan:     #00B4D8;
+    --ink:      #1A2740;
+    --rule:     #C8D8EA;
+  }
+  /* ──────────────────────────────────────────────────────────── */
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--offwhite);
+    font-family: 'Sarabun', sans-serif;
+    color: var(--ink);
+    width: 900px;
+    margin: 0 auto;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* ── PAGE BREAK HELPERS ── */
+  .page-break     { page-break-before: always; break-before: page; }
+  .no-break       { page-break-inside: avoid;  break-inside: avoid; }
+  .keep-with-next { page-break-after: avoid;   break-after: avoid; }
+
+  /* ══════════════════════════════════════════
+     HEADER
+  ══════════════════════════════════════════ */
+  .header {
+    background: var(--white);
+    border-bottom: 3px solid var(--blue);
+    position: relative;
+    overflow: hidden;
+  }
+  /* subtle grid texture */
+  .header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, var(--ltblue) 0, var(--ltblue) 1px, transparent 1px, transparent 48px),
+      repeating-linear-gradient(0deg,  var(--ltblue) 0, var(--ltblue) 1px, transparent 1px, transparent 48px);
+    opacity: 0.45;
+  }
+  /* diagonal blue accent panel on right */
+  .header::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 340px; height: 100%;
+    background: linear-gradient(135deg, var(--blue) 0%, var(--navy) 100%);
+    clip-path: polygon(60px 0, 100% 0, 100% 100%, 0 100%);
+  }
+  .header-inner {
+    position: relative; z-index: 1;
+    display: flex; align-items: stretch;
+    min-height: 195px;
+  }
+  .header-left {
+    flex: 1;
+    padding: 36px 40px 32px;
+    display: flex; flex-direction: column; justify-content: center; gap: 10px;
+  }
+
+  /* ── QTEwater Logo SVG area ── */
+  .logo-wrap { display: flex; align-items: center; gap: 0; }
+
+  .sub-brand {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px; letter-spacing: 2.5px;
+    color: var(--grey); text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .tagline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 400;
+    color: var(--steel); letter-spacing: 3px;
+    text-transform: uppercase;
+    border-left: 3px solid var(--cyan);
+    padding-left: 10px;
+    margin-top: 4px;
+  }
+
+  /* ── Right stats (on blue panel) ── */
+  .header-right {
+    width: 300px;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    padding: 28px 30px; gap: 14px;
+    position: relative; z-index: 2;
+  }
+  .stat-pill { text-align: center; }
+  .stat-pill .num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 46px; font-weight: 800;
+    color: var(--white); line-height: 1;
+  }
+  .stat-pill .unit {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px; color: var(--sky);
+  }
+  .stat-pill .lbl {
+    font-size: 10px; color: rgba(255,255,255,.7);
+    letter-spacing: 1.5px; text-transform: uppercase; margin-top: 1px;
+  }
+  .divider-v { width: 1px; height: 26px; background: rgba(255,255,255,.15); }
+
+  /* ── POWERED-BY badge ── */
+  .powered-by {
+    position: absolute; bottom: 14px; left: 40px;
+    display: flex; align-items: center; gap: 7px;
+    background: var(--cloud);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 4px 10px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px; letter-spacing: 1.5px;
+    color: var(--grey);
+  }
+  .powered-by strong { color: var(--blue); }
+
+  /* ══════════════════════════════════════════
+     SECTION STRUCTURE
+  ══════════════════════════════════════════ */
+  .section { padding: 32px 40px 0; }
+
+  .sec-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px; letter-spacing: 3px;
+    color: var(--accent); text-transform: uppercase;
+    margin-bottom: 7px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .sec-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: var(--rule);
+  }
+
+  h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px; font-weight: 700;
+    color: var(--navy); margin-bottom: 18px;
+  }
+  h2 em { color: var(--blue); font-style: normal; }
+
+  /* ── HDIV ── */
+  .hdiv {
+    height: 1px;
+    background: var(--rule);
+    margin: 0 40px 26px;
+  }
+
+  /* ══════════════════════════════════════════
+     INTRO BANNER
+  ══════════════════════════════════════════ */
+  .intro-banner {
+    background: linear-gradient(100deg, var(--navy) 0%, var(--blue) 100%);
+    border-radius: 6px;
+    padding: 22px 26px;
+    display: flex; gap: 22px; align-items: center;
+    margin-bottom: 24px;
+    position: relative; overflow: hidden;
+  }
+  .intro-banner::before {
+    content: '';
+    position: absolute; top: -30px; right: -30px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    border: 28px solid rgba(255,255,255,.05);
+  }
+  .intro-icon { font-size: 38px; flex-shrink: 0; }
+  .intro-text p { font-size: 13.5px; color: rgba(255,255,255,.88); line-height: 1.75; }
+  .intro-text strong { color: var(--sky); }
+
+  /* ══════════════════════════════════════════
+     PROBLEM — 3 CARDS
+  ══════════════════════════════════════════ */
+  .scale-visual { display: flex; gap: 12px; margin-bottom: 24px; }
+  .scale-card {
+    flex: 1; padding: 18px;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--rule);
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(21,101,192,.06);
+    position: relative; overflow: hidden;
+  }
+  .scale-card.alert { border-top-color: #E53935; }
+  .scale-card.good  { border-top-color: var(--cyan); }
+  .scale-card::before {
+    content: attr(data-bg);
+    position: absolute; right: -8px; bottom: -12px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 72px; font-weight: 800;
+    color: rgba(21,101,192,.04); line-height: 1;
+  }
+  .scale-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--grey); margin-bottom: 8px;
+  }
+  .bar-wrap { height: 8px; background: var(--cloud); border-radius: 4px; overflow: hidden; margin-bottom: 7px; }
+  .bar { height: 100%; border-radius: 4px; }
+  .bar.bad  { background: linear-gradient(90deg, #C62828, #E53935); }
+  .bar.good { background: linear-gradient(90deg, #0097A7, var(--cyan)); }
+  .scale-card .val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 30px; font-weight: 800;
+  }
+  .val.bad  { color: #E53935; }
+  .val.good { color: var(--cyan); }
+  .scale-card p { font-size: 11.5px; color: var(--grey); margin-top: 4px; line-height: 1.5; }
+
+  /* ══════════════════════════════════════════
+     TECH GRID
+  ══════════════════════════════════════════ */
+  .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+  .tech-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--ltblue);
+    border-radius: 6px; padding: 18px;
+    box-shadow: 0 2px 8px rgba(21,101,192,.05);
+  }
+  .tech-card.primary { border-left-color: var(--blue); background: var(--offwhite); }
+  .tech-icon { font-size: 24px; margin-bottom: 8px; }
+  .tech-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: var(--navy); margin-bottom: 5px;
+  }
+  .tech-card p { font-size: 12px; color: var(--grey); line-height: 1.65; }
+  .tag {
+    display: inline-block; margin-top: 9px;
+    background: var(--ltblue); color: var(--blue);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px; letter-spacing: 1.5px;
+    padding: 3px 8px; border-radius: 2px;
+    border: 1px solid rgba(21,101,192,.2);
+  }
+
+  /* ══════════════════════════════════════════
+     FLOW DIAGRAM
+  ══════════════════════════════════════════ */
+  .flow-row {
+    display: flex; align-items: center;
+    margin-bottom: 24px; gap: 0;
+  }
+  .flow-box {
+    flex: 1; text-align: center;
+    padding: 14px 6px;
+    background: var(--white);
+    border: 1px solid var(--rule); border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(21,101,192,.06);
+  }
+  .flow-box .flow-icon { font-size: 20px; }
+  .flow-box p { font-size: 10.5px; color: var(--dkgrey); margin-top: 4px; line-height: 1.4; }
+  .flow-arrow { width: 30px; text-align: center; font-size: 16px; color: var(--blue); flex-shrink: 0; }
+  .flow-box.active {
+    background: var(--blue); border-color: var(--blue);
+  }
+  .flow-box.active p { color: rgba(255,255,255,.9); font-weight: 600; }
+
+  /* ══════════════════════════════════════════
+     NO-CHEM STRIP
+  ══════════════════════════════════════════ */
+  .no-chem {
+    background: var(--navy);
+    padding: 14px 40px;
+    display: flex; gap: 0; align-items: center; justify-content: center;
+    margin-bottom: 26px;
+  }
+  .no-chem-item {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12.5px; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--white);
+  }
+  .no-chem-item span { color: var(--cyan); font-size: 15px; }
+  .no-chem-sep { width: 1px; height: 28px; background: rgba(255,255,255,.12); flex-shrink: 0; }
+
+  /* ══════════════════════════════════════════
+     SAVINGS BLOCK
+  ══════════════════════════════════════════ */
+  .savings-block {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 8px; overflow: hidden; margin-bottom: 24px;
+    box-shadow: 0 3px 16px rgba(21,101,192,.08);
+  }
+  .savings-header {
+    background: linear-gradient(90deg, var(--navy), var(--blue));
+    padding: 14px 22px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .savings-header h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; color: var(--white); }
+  .savings-header span { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: rgba(255,255,255,.55); letter-spacing: 2px; margin-left: auto; }
+  .savings-body { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+  .sav-col { padding: 20px 18px; border-right: 1px solid var(--rule); }
+  .sav-col:last-child { border-right: none; background: linear-gradient(135deg, #E3F2FD, #F5F8FC); }
+  .sav-col .lbl { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--grey); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 7px; }
+  .sav-col .big { font-family: 'Barlow Condensed', sans-serif; font-size: 34px; font-weight: 800; line-height: 1; color: var(--navy); }
+  .sav-col .big.blue { color: var(--blue); }
+  .sav-col .big.red  { color: #E53935; }
+  .sav-col .sub  { font-size: 12px; color: var(--grey); margin-top: 4px; }
+  .sav-col .note { font-size: 10.5px; color: var(--grey); margin-top: 8px; opacity: .7; }
+
+  /* ══════════════════════════════════════════
+     CARBON
+  ══════════════════════════════════════════ */
+  .carbon-row { display: flex; gap: 12px; margin-bottom: 22px; }
+  .carbon-card {
+    flex: 1; padding: 18px;
+    background: var(--white); border: 1px solid var(--rule);
+    border-radius: 6px; display: flex; gap: 14px; align-items: flex-start;
+    box-shadow: 0 2px 8px rgba(21,101,192,.05);
+  }
+  .carbon-card .ico { font-size: 30px; flex-shrink: 0; }
+  .carbon-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; color: var(--blue); }
+  .carbon-card p { font-size: 11.5px; color: var(--grey); margin-top: 3px; line-height: 1.55; }
+
+  /* ESG strip */
+  .esg-strip {
+    background: linear-gradient(90deg, var(--ltblue), var(--cloud));
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--blue);
+    border-radius: 4px; padding: 13px 18px;
+    display: flex; gap: 12px; align-items: center;
+    margin-bottom: 26px;
+  }
+  .esg-strip p { font-size: 12.5px; color: var(--dkgrey); line-height: 1.7; }
+  .esg-strip strong { color: var(--blue); }
+
+  /* ══════════════════════════════════════════
+     APPLICATIONS
+  ══════════════════════════════════════════ */
+  .apps-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 8px; margin-bottom: 20px; }
+  .app-item {
+    text-align: center; padding: 14px 6px;
+    background: var(--white); border: 1px solid var(--rule); border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(21,101,192,.05);
+    transition: border-color .2s;
+  }
+  .app-item .ico { font-size: 24px; display: block; margin-bottom: 7px; }
+  .app-item p { font-size: 10.5px; color: var(--dkgrey); line-height: 1.4; }
+
+  /* ── SECTORS ── */
+  .sectors { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 26px; }
+  .sector-tag {
+    padding: 5px 12px; background: var(--white);
+    border: 1px solid var(--rule); border-radius: 3px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 600; letter-spacing: 1px; color: var(--steel);
+    box-shadow: 0 1px 3px rgba(21,101,192,.06);
+  }
+
+  /* ══════════════════════════════════════════
+     BENEFITS
+  ══════════════════════════════════════════ */
+  .benefits-row { display: flex; gap: 10px; margin-bottom: 26px; }
+  .benefit {
+    flex: 1; background: var(--white);
+    border: 1px solid var(--rule); border-radius: 6px;
+    padding: 16px; text-align: center;
+    box-shadow: 0 2px 8px rgba(21,101,192,.05);
+    position: relative;
+  }
+  .benefit::before {
+    content: '';
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 40%; height: 2.5px; background: var(--blue); border-radius: 0 0 3px 3px;
+  }
+  .benefit .ico { font-size: 26px; margin-bottom: 7px; display: block; margin-top: 4px; }
+  .benefit h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: var(--navy); margin-bottom: 5px;
+  }
+  .benefit p { font-size: 11px; color: var(--grey); line-height: 1.5; }
+
+  /* ══════════════════════════════════════════
+     PRODUCT SPECS
+  ══════════════════════════════════════════ */
+  .products-section {
+    background: var(--white); border: 1px solid var(--rule);
+    border-radius: 8px; overflow: hidden; margin-bottom: 26px;
+    box-shadow: 0 3px 16px rgba(21,101,192,.07);
+  }
+  .prod-header {
+    background: linear-gradient(90deg, var(--navy), var(--blue));
+    padding: 14px 22px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .prod-header span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700; color: var(--white); letter-spacing: 1px;
+  }
+  /* FlowX mini credit in header */
+  .flowx-credit {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+    border-radius: 3px; padding: 3px 10px;
+    font-family: 'Share Tech Mono', monospace; font-size: 9px;
+    letter-spacing: 1.5px; color: rgba(255,255,255,.85);
+  }
+  .prod-line {
+    padding: 15px 22px; display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 18px; align-items: center;
+    border-bottom: 1px solid var(--rule);
+  }
+  .prod-line:last-child { border-bottom: none; }
+  .prod-line.hi { background: linear-gradient(90deg, #EBF5FF, var(--white)); }
+  .line-badge { display: flex; align-items: center; gap: 9px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .dot.blue { background: #1A7BD4; box-shadow: 0 0 6px rgba(26,123,212,.5); }
+  .dot.red  { background: #D41A1A; box-shadow: 0 0 6px rgba(212,26,26,.5); }
+  .dot.cyan { background: var(--cyan); box-shadow: 0 0 6px rgba(0,180,216,.5); }
+  .line-name { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; color: var(--navy); }
+  .specs-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+  .spec-chip {
+    background: var(--cloud); border: 1px solid var(--rule);
+    border-radius: 3px; padding: 3px 8px;
+    font-family: 'Share Tech Mono', monospace; font-size: 9.5px; color: var(--dkgrey);
+  }
+
+  /* ══════════════════════════════════════════
+     FOOTER
+  ══════════════════════════════════════════ */
+  .footer {
+    background: var(--navy);
+    border-top: 3px solid var(--blue);
+    padding: 26px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-right { text-align: right; }
+  .footer-right p { font-size: 11.5px; color: rgba(255,255,255,.5); line-height: 1.9; }
+  .footer-right a { color: var(--sky); text-decoration: none; }
+  .footer-web {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px; font-weight: 700; color: var(--white); letter-spacing: 1px;
+  }
+  /* footer FlowX credit */
+  .footer-poweredby {
+    margin-top: 10px; padding: 6px 12px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12); border-radius: 3px;
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px; letter-spacing: 1.5px; color: rgba(255,255,255,.5);
+  }
+
+  @media print {
+    body { width: 900px; }
+    @page { size: 900px auto; margin: 0; }
+    .page-break { page-break-before: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════ -->
+<header class="header no-break">
+  <div class="header-inner">
+    <div class="header-left">
+
+      <!-- QTEwater Logo SVG -->
+      <svg width="300" height="68" viewBox="0 0 300 68" xmlns="http://www.w3.org/2000/svg" aria-label="QTEwater">
+        <defs>
+          <linearGradient id="qDropGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"  stop-color="#1976D2"/>
+            <stop offset="100%" stop-color="#0D2B55"/>
+          </linearGradient>
+          <linearGradient id="qWave" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"  stop-color="#0288D1"/>
+            <stop offset="50%" stop-color="#42A5F5"/>
+            <stop offset="100%" stop-color="#0288D1" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="qTxt" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"  stop-color="#0D2B55"/>
+            <stop offset="100%" stop-color="#1565C0"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Q icon mark: circle with water drop inside -->
+        <circle cx="22" cy="28" r="18" fill="url(#qDropGrad)" opacity="0.92"/>
+        <!-- water drop inside Q -->
+        <path d="M22 15 C22 15 14 23 14 29 C14 33.4 17.6 37 22 37 C26.4 37 30 33.4 30 29 C30 23 22 15 22 15Z"
+              fill="none" stroke="white" stroke-width="1.8" opacity="0.9"/>
+        <path d="M22 22 C22 22 18 26 18 29.5 C18 31.5 19.8 33 22 33"
+              fill="none" stroke="#90CAF9" stroke-width="1.3" stroke-linecap="round" opacity="0.7"/>
+        <!-- Q tail -->
+        <line x1="29" y1="36" x2="36" y2="43" stroke="url(#qDropGrad)" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- "QTE" bold -->
+        <text x="48" y="40" font-family="'Barlow Condensed', Arial Black, sans-serif"
+              font-size="40" font-weight="800" fill="url(#qTxt)" letter-spacing="-1">QTE</text>
+        <!-- "water" smaller, cyan accent -->
+        <text x="155" y="40" font-family="'Barlow Condensed', Arial Black, sans-serif"
+              font-size="40" font-weight="700" fill="#0288D1" letter-spacing="-0.5">water</text>
+
+        <!-- underline wave -->
+        <rect x="48" y="48" width="230" height="2.5" rx="1.25" fill="url(#qWave)"/>
+
+        <!-- ® mark -->
+        <text x="268" y="22" font-family="sans-serif" font-size="10" fill="#6B7E95">®</text>
+      </svg>
+
+      <div class="sub-brand">A Qualitech Equipment Company · Authorized FlowX Distributor · Thailand</div>
+      <div class="tagline">Industrial Water Management Solutions</div>
+
+      <!-- Powered-by badge -->
+      <div class="powered-by" style="position:relative;left:0;bottom:0;margin-top:10px;width:fit-content;">
+        <svg width="36" height="12" viewBox="0 0 36 12">
+          <text x="0" y="10" font-family="'Barlow Condensed',sans-serif" font-size="12"
+                font-weight="800" fill="#1565C0">Flow</text>
+          <text x="27" y="10" font-family="'Barlow Condensed',sans-serif" font-size="12"
+                font-weight="800" fill="#0288D1">X</text>
+        </svg>
+        <span>Powered by <strong>FlowX® TGP Technology</strong></span>
+      </div>
+    </div>
+
+    <!-- Right stats panel (sits on diagonal blue) -->
+    <div class="header-right">
+      <div class="stat-pill">
+        <div class="num">5–15<span class="unit">%</span></div>
+        <div class="lbl">Energy Loss จาก Scale</div>
+      </div>
+      <div class="divider-v"></div>
+      <div class="stat-pill">
+        <div class="num">80<span class="unit">+</span></div>
+        <div class="lbl">ประเทศที่ใช้เทคโนโลยี</div>
+      </div>
+      <div class="divider-v"></div>
+      <div class="stat-pill">
+        <div class="num">0</div>
+        <div class="lbl">สารเคมี · ไฟฟ้า</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════
+     01 · WHO WE ARE
+══════════════════════════════════════════ -->
+<section class="section" style="padding-top:30px;">
+  <div class="sec-label keep-with-next">01 · เกี่ยวกับเรา</div>
+  <h2 class="keep-with-next"><em>QTEwater</em> — ผู้จัดจำหน่ายอย่างเป็นทางการในประเทศไทย</h2>
+
+  <div class="intro-banner no-break">
+    <div class="intro-icon">🇹🇭</div>
+    <div class="intro-text">
+      <p>QTEwater คือสาขาเฉพาะทางด้านระบบน้ำของ <strong>Qualitech Equipment</strong> ผู้นำด้านวิศวกรรมอุตสาหกรรม เราเป็น <strong>ตัวแทนจำหน่ายอย่างเป็นทางการของ FlowX®</strong> ในประเทศไทย นำเทคโนโลยี Industrial Water Innovation ระดับโลกมาสู่โรงงานอุตสาหกรรมไทย พร้อมบริการที่ปรึกษา ออกแบบ และติดตั้งโดยทีมวิศวกรผู้เชี่ยวชาญ</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     02 · THE PROBLEM
+══════════════════════════════════════════ -->
+<section class="section" style="padding-top:0;">
+  <div class="sec-label keep-with-next">02 · ปัญหา</div>
+  <h2 class="keep-with-next">พลังงานที่ <em>สูญเสีย</em> อยู่ในระบบน้ำของโรงงานคุณ</h2>
+
+  <div class="scale-visual no-break">
+    <div class="scale-card alert" data-bg="35">
+      <h3>ประสิทธิภาพการถ่ายเทความร้อน</h3>
+      <div class="bar-wrap"><div class="bar bad" style="width:35%"></div></div>
+      <div class="val bad">−35%</div>
+      <p>Scale หนา 8mm ลดประสิทธิภาพลงถึง 35%</p>
+    </div>
+    <div class="scale-card alert" data-bg="15">
+      <h3>การสูญเสียพลังงาน</h3>
+      <div class="bar-wrap"><div class="bar bad" style="width:55%"></div></div>
+      <div class="val bad">+15%</div>
+      <p>ค่าไฟฟ้าเพิ่มขึ้นตามชั้น Scale ที่สะสม</p>
+    </div>
+    <div class="scale-card good" data-bg="90">
+      <h3>ประสิทธิภาพด้วย FlowX®</h3>
+      <div class="bar-wrap"><div class="bar good" style="width:90%"></div></div>
+      <div class="val good">90%</div>
+      <p>ชะลอการก่อตัว Scale ได้ 76–90%</p>
+    </div>
+  </div>
+</section>
+
+<div class="hdiv"></div>
+
+<!-- ══════════════════════════════════════════
+     03 · TECHNOLOGY (FlowX)
+══════════════════════════════════════════ -->
+<section class="section" style="padding-top:0;">
+  <div class="sec-label keep-with-next">03 · เทคโนโลยี · Powered by FlowX®</div>
+  <h2 class="keep-with-next"><em>TGP® Technology</em> — ป้องกัน Scale ตั้งแต่ต้นทาง</h2>
+
+  <div class="tech-grid no-break">
+    <div class="tech-card primary">
+      <div class="tech-icon">⚡</div>
+      <h3>Turbulent Galvanic Polarization (TGP®)</h3>
+      <p>เทคโนโลยีสิทธิบัตรจาก FlowX® ปรับโครงสร้างการตกผลึกของแร่ธาตุในน้ำ ทำให้ผลึกไม่สามารถเกาะผิวท่อหรือ Heat Exchanger ได้ — ไม่ต้องใช้ไฟฟ้า ไม่ต้องใช้สารเคมี</p>
+      <div class="tag">NO POWER · NO CHEMICALS</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-icon">🔬</div>
+      <h3>Crystal Structure Control</h3>
+      <p>ป้องกันการก่อตัวของ Scale ตั้งแต่ต้นทาง ผลึกแร่ธาตุจะแขวนลอยในน้ำและถูกพัดพาออกโดยไม่ตกตะกอน</p>
+      <div class="tag">PREVENTIVE APPROACH</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-icon">🔧</div>
+      <h3>Inline Flange Installation</h3>
+      <p>ติดตั้งแบบ Inline Flange รองรับ DN40–DN150 ไม่หยุดระบบระยะยาว ไม่ต้องปรับเปลี่ยนท่อเดิม</p>
+      <div class="tag">EASY INSTALL</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-icon">🌐</div>
+      <h3>Swiss Engineering · Global Proven</h3>
+      <p>สิทธิบัตรระดับสากล ติดตั้งแล้วกว่า 80 ประเทศ ใช้ในโรงงานอุตสาหกรรมและ Data Center ชั้นนำทั่วโลก</p>
+      <div class="tag">80+ COUNTRIES</div>
+    </div>
+  </div>
+</section>
+
+<div class="hdiv"></div>
+
+<!-- ══════════════════════════════════════════
+     HOW IT WORKS
+══════════════════════════════════════════ -->
+<section class="section" style="padding-top:0;">
+  <div class="sec-label keep-with-next">04 · กระบวนการ</div>
+  <h2 class="keep-with-next">วิธีการทำงาน</h2>
+
+  <div class="flow-row no-break">
+    <div class="flow-box">
+      <div class="flow-icon">💧</div>
+      <p>น้ำที่มีแร่ธาตุ<br>เข้าสู่ระบบ</p>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box active">
+      <div class="flow-icon">⚡</div>
+      <p>FlowX® TGP®<br>ปรับโครงสร้างผลึก</p>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box">
+      <div class="flow-icon">🌊</div>
+      <p>ผลึกลอยตัว<br>ไม่เกาะผิวท่อ</p>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box">
+      <div class="flow-icon">🏭</div>
+      <p>ระบบรักษา<br>ประสิทธิภาพ 90%+</p>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box">
+      <div class="flow-icon">📉</div>
+      <p>ลดพลังงาน<br>ลด CO₂</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     NO-CHEM STRIP
+══════════════════════════════════════════ -->
+<div class="no-chem no-break">
+  <div class="no-chem-item"><span>✓</span> ไม่ใช้สารเคมี</div>
+  <div class="no-chem-sep"></div>
+  <div class="no-chem-item"><span>✓</span> ไม่ต้องต่อไฟฟ้า</div>
+  <div class="no-chem-sep"></div>
+  <div class="no-chem-item"><span>✓</span> ไม่ต้องเปลี่ยนไส้กรอง</div>
+  <div class="no-chem-sep"></div>
+  <div class="no-chem-item"><span>✓</span> บำรุงรักษาต่ำมาก</div>
+  <div class="no-chem-sep"></div>
+  <div class="no-chem-item"><span>✓</span> ECO-FRIENDLY</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     05 · SAVINGS
+══════════════════════════════════════════ -->
+<section class="section" style="padding-top:0;">
+  <div class="sec-label keep-with-next">05 · ผลลัพธ์ทางการเงิน</div>
+  <h2 class="keep-with-next">ตัวอย่าง <em>การประหยัดพลังงาน</em> จริง</h2>
+
+  <div class="savings-block no-break">
+    <div class="savings-header">
+      <h3>🏭 ระบบ Cooling Tower ขนาด 1 MW</h3>
+      <span>EXAMPLE · INDUSTRIAL COOLING SYSTEM</span>
+    </div>
+    <div class="savings-body">
+      <div class="sav-col">
+        <div class="lbl">พลังงานรวม / ปี</div>
+        <div class="big">8,000,000</div>
+        <div class="sub">kWh / ปี</div>
+        <div class="note">ค่าไฟประมาณ 32 ล้านบาท / ปี</div>
+      </div>
+      <div class="sav-col">
+        <div class="lbl">Energy Loss จาก Scale</div>
+        <div class="big red">3,000,000</div>
+        <div class="sub">kWh ที่สูญเสีย (10%)</div>
+        <div class="note">ต้นทุนที่หายไป ≈ 3 ล้านบาท / ปี</div>
+      </div>
+      <div class="sav-col">
+        <div class="lbl">ประหยัดด้วย QTEwater</div>
+        <div class="big blue">2–3 ล้าน</div>
+        <div class="sub">บาท / ปี</div>
+        <div class="note" style="color:var(--blue);opacity:.8;font-weight:600;">Payback &lt; 1 ปี</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     06 · CARBON
+══════════════════════════════════════════ -->
+<section class="section" style="padding-top:0;">
+  <div class="sec-label keep-with-next">06 · Carbon Impact</div>
+  <h2 class="keep-with-next">ลด <em>Carbon Emissions</em> สู่เป้าหมาย Net Zero</h2>
+
+  <div class="carbon-row no-break">
+    <div class="carbon-card">
+      <div class="ico">⚡</div>
+      <div>
+        <h3>700,000 kWh</h3>
+        <p>พลังงานที่ประหยัดได้ต่อปี<br>จากระบบ Cooling ขนาด 1 MW</p>
+      </div>
+    </div>
+    <div class="carbon-card">
+      <div class="ico">🌿</div>
+      <div>
+        <h3>≈ 350 ตัน CO₂</h3>
+        <p>ลดการปล่อยก๊าซเรือนกระจก<br>ต่อปีต่อโรงงาน</p>
+      </div>
+    </div>
+    <div class="carbon-card">
+      <div class="ico">🏢</div>
+      <div>
+        <h3>หลายพันตัน</h3>
+        <p>ผลกระทบสะสมสำหรับองค์กร<br>ที่มีหลายโรงงาน</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="esg-strip no-break">
+    <span style="font-size:22px;">🎯</span>
+    <p>QTEwater รองรับกลยุทธ์ <strong>ESG · Carbon Neutrality · Net Zero</strong> ขององค์กร — ด้วยการเพิ่ม Energy Efficiency ซึ่งเป็นแนวทางที่มีต้นทุนต่ำที่สุดในการลดคาร์บอน</p>
+  </div>
+</section>
+
+<div class="hdiv"></div>
+
+<!-- ══════════════════════════════════════════
+     07 · APPLICATIONS
+══════════════════════════════════════════ -->
+<section class="section" style="padding-top:0;">
+  <div class="sec-label keep-with-next">07 · การประยุกต์ใช้</div>
+  <h2 class="keep-with-next">รองรับทุก <em>ระบบน้ำอุตสาหกรรม</em></h2>
+
+  <div class="apps-grid no-break">
+    <div class="app-item"><span class="ico">🌡️</span><p>Cooling<br>Towers</p></div>
+    <div class="app-item"><span class="ico">❄️</span><p>Chiller<br>Systems</p></div>
+    <div class="app-item"><span class="ico">🔥</span><p>Heat<br>Exchangers</p></div>
+    <div class="app-item"><span class="ico">♨️</span><p>Boilers<br>Systems</p></div>
+    <div class="app-item"><span class="ico">🏗️</span><p>Industrial<br>Water</p></div>
+  </div>
+
+  <div class="sec-label">กลุ่มอุตสาหกรรม</div>
+  <div class="sectors">
+    <div class="sector-tag">Food &amp; Beverage</div>
+    <div class="sector-tag">Chemical</div>
+    <div class="sector-tag">Petrochemical</div>
+    <div class="sector-tag">Manufacturing</div>
+    <div class="sector-tag">Data Centers</div>
+    <div class="sector-tag">HVAC Systems</div>
+    <div class="sector-tag">Automotive</div>
+    <div class="sector-tag">Pharmaceutical</div>
+    <div class="sector-tag">Power Generation</div>
+  </div>
+</section>
+
+<div class="hdiv"></div>
+
+<!-- ══════════════════════════════════════════
+     08 · BENEFITS
+══════════════════════════════════════════ -->
+<section class="section" style="padding-top:0;">
+  <div class="sec-label keep-with-next">08 · ประโยชน์หลัก</div>
+  <h2 class="keep-with-next">ทุก <em>มิติ</em> ของ Value</h2>
+
+  <div class="benefits-row no-break">
+    <div class="benefit">
+      <span class="ico">💡</span>
+      <h4>Energy Efficiency</h4>
+      <p>เพิ่มประสิทธิภาพ Heat Transfer ลดการใช้พลังงานของระบบ</p>
+    </div>
+    <div class="benefit">
+      <span class="ico">💰</span>
+      <h4>Cost Reduction</h4>
+      <p>ลดค่าไฟฟ้าและต้นทุนดำเนินงาน Payback &lt; 1 ปี</p>
+    </div>
+    <div class="benefit">
+      <span class="ico">🔧</span>
+      <h4>Low Maintenance</h4>
+      <p>ลด Scale สะสม ลดความถี่การบำรุงรักษาเครื่องจักร</p>
+    </div>
+    <div class="benefit">
+      <span class="ico">🌿</span>
+      <h4>Carbon Neutral</h4>
+      <p>สนับสนุน ESG Goals และ Net Zero Emissions</p>
+    </div>
+  </div>
+</section>
+
+<div class="hdiv"></div>
+
+<!-- ══════════════════════════════════════════
+     09 · PRODUCT SPECS
+══════════════════════════════════════════ -->
+<section class="section" style="padding-top:0;">
+  <div class="sec-label keep-with-next">09 · สเปคผลิตภัณฑ์</div>
+  <h2 class="keep-with-next">FlowX® <em>Industrial Series</em> · จัดจำหน่ายโดย QTEwater</h2>
+
+  <div class="products-section no-break">
+    <div class="prod-header">
+      <span>รุ่นสำหรับอุตสาหกรรม · Flange Connection</span>
+      <div class="flowx-credit">
+        ⚡ Powered by FlowX® TGP Technology
+      </div>
+    </div>
+    <div class="prod-line">
+      <div class="line-badge">
+        <div class="dot blue"></div>
+        <div class="line-name">Blue Line</div>
+      </div>
+      <div class="specs-wrap">
+        <div class="spec-chip">DN40 – DN125</div>
+        <div class="spec-chip">Flow: 8–25 m³/hr</div>
+        <div class="spec-chip">Max 16 Bar</div>
+        <div class="spec-chip">3 TGP Coretubes</div>
+        <div class="spec-chip">Flange Connection</div>
+        <div class="spec-chip">High-Flow Industrial</div>
+      </div>
+    </div>
+    <div class="prod-line">
+      <div class="line-badge">
+        <div class="dot red"></div>
+        <div class="line-name">Red Line</div>
+      </div>
+      <div class="specs-wrap">
+        <div class="spec-chip">DN40 – DN150</div>
+        <div class="spec-chip">Flow: 8–60 m³/hr</div>
+        <div class="spec-chip">Max 16 Bar</div>
+        <div class="spec-chip">3–4 TGP Coretubes</div>
+        <div class="spec-chip">Flange Connection</div>
+        <div class="spec-chip">Heavy Industrial</div>
+      </div>
+    </div>
+    <div class="prod-line hi">
+      <div class="line-badge">
+        <div class="dot cyan"></div>
+        <div class="line-name" style="color:var(--accent);">DN65 Hybrid</div>
+      </div>
+      <div class="specs-wrap">
+        <div class="spec-chip">DN65 Flange</div>
+        <div class="spec-chip">4 TGP + Linear</div>
+        <div class="spec-chip">Max 10 Bar</div>
+        <div class="spec-chip">Flow: 16 m³/hr</div>
+        <div class="spec-chip">&lt;0.5 Bar Pressure Drop</div>
+        <div class="spec-chip">Blue &amp; Red Available</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer class="footer no-break">
+  <!-- Left: QTEwater logo in footer -->
+  <div>
+    <svg width="180" height="44" viewBox="0 0 180 44" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="fqGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"  stop-color="#42A5F5"/>
+          <stop offset="100%" stop-color="#1565C0"/>
+        </linearGradient>
+        <linearGradient id="fqWave" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"  stop-color="#42A5F5"/>
+          <stop offset="100%" stop-color="#42A5F5" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <circle cx="14" cy="18" r="12" fill="url(#fqGrad)" opacity="0.85"/>
+      <path d="M14 9 C14 9 8 15 8 19.5 C8 22.8 10.7 25.5 14 25.5 C17.3 25.5 20 22.8 20 19.5 C20 15 14 9 14 9Z"
+            fill="none" stroke="white" stroke-width="1.4" opacity="0.9"/>
+      <line x1="19" y1="24" x2="23" y2="28" stroke="#42A5F5" stroke-width="2.2" stroke-linecap="round"/>
+      <text x="30" y="26" font-family="'Barlow Condensed',Arial Black,sans-serif"
+            font-size="26" font-weight="800" fill="white" letter-spacing="-0.5">QTE</text>
+      <text x="99" y="26" font-family="'Barlow Condensed',Arial Black,sans-serif"
+            font-size="26" font-weight="700" fill="#42A5F5" letter-spacing="-0.3">water</text>
+      <rect x="30" y="31" width="145" height="2" rx="1" fill="url(#fqWave)"/>
+    </svg>
+    <div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:6px;letter-spacing:2px;font-family:'Share Tech Mono',monospace;">
+      A QUALITECH EQUIPMENT COMPANY
+    </div>
+    <!-- FlowX credit -->
+    <div class="footer-poweredby">
+      <svg width="40" height="11" viewBox="0 0 40 11">
+        <text x="0" y="9" font-family="'Barlow Condensed',sans-serif" font-size="11"
+              font-weight="800" fill="#42A5F5">Flow</text>
+        <text x="29" y="9" font-family="'Barlow Condensed',sans-serif" font-size="11"
+              font-weight="800" fill="#90CAF9">X</text>
+      </svg>
+      <span>Powered by FlowX® TGP® Technology · Swiss Engineering</span>
+    </div>
+  </div>
+
+  <div style="text-align:center;">
+    <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:rgba(255,255,255,.35);letter-spacing:3px;margin-bottom:8px;">CONTACT</div>
+    <div style="font-size:20px;">📧 &nbsp; 📞 &nbsp; 🌐</div>
+  </div>
+
+  <div class="footer-right">
+    <div class="footer-web">www.qtewater.com</div>
+    <p style="margin-top:7px;">
+      สอบถามข้อมูลและรับคำปรึกษาฟรี<br>
+      QTEwater · Qualitech Equipment<br>
+      Authorized FlowX® Distributor · Thailand
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
